@@ -21,7 +21,7 @@ const userSchema =mongoose.Schema({
     }
 });
 
-userSchema.methods.validateUser = (obj)=> {
+userSchema.methods.validateUserRegistration = (obj)=> {
     const validationSchema = Joi.object({
         name: Joi.string().min(6).max(30).required(),
         password: Joi.string().min(8).max(30).regex(/[a-zA-Z0-9]{3,30}/).required(),

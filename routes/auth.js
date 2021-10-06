@@ -6,7 +6,7 @@ const bcrypt= require('bcryptjs');
 router.post('/register',async(req,res)=>{
 
     const user= new User(req.body);
-    const validationError=user.validateUser(req.body);
+    const validationError=user.validateUserRegistration(req.body);
     const emailExistsError= await User.findOne({email:req.body.email});
 
     if(validationError.error )
@@ -29,6 +29,11 @@ router.post('/register',async(req,res)=>{
     }
 
 
+
+});
+
+
+router.post('/login',async(req,res)=>{
 
 });
 
