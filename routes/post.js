@@ -1,7 +1,7 @@
 const express = require ('express');
 const router = express.Router();
 const Post = require('../models/Post');
-const verify = require('../verification_token');
+const verify = require('../middleware/verification_token');
 
 router.get('/',verify,async(req,res)=>{
     try{
