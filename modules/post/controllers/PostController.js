@@ -1,9 +1,6 @@
-const express = require ('express');
-const router = express.Router();
-const Post = require('../models/Post');
-const verify = require('../../auth/middleware/verification_token');
+const Post = require("../models/Post");
 
-router.get('/',verify,async(req,res)=>{
+const index= async(req,res)=>{
     try{
         const posts= await Post.find();
         res.json(posts);
@@ -11,9 +8,9 @@ router.get('/',verify,async(req,res)=>{
     catch(err){
         res.json(err);
     }
-});
+}
 
-router.post('/',verify,async(req,res)=>{
+const create= async(req,res)=>{
     const post= new Post({
         title: req.body.title,
         description: req.body.description
@@ -27,9 +24,9 @@ router.post('/',verify,async(req,res)=>{
         res.json(err);
     }
 
-});
+}
 
-router.get('/:postid',verify,async(req,res)=>{
+const show= async(req,res)=>{
     try{
         const posts= await Post.findById(req.params.postid);
         res.json(posts);
@@ -37,9 +34,9 @@ router.get('/:postid',verify,async(req,res)=>{
     catch(err){
         res.json(err);
     }
-});
+}
 
-router.delete('/:postid',verify,async(req,res)=>{
+const destroy = async(req,res)=>{
     try{
         const posts= await Post.remove({_id:req.params.postid})
         res.json(posts);
@@ -47,9 +44,9 @@ router.delete('/:postid',verify,async(req,res)=>{
     catch(err){
         res.json(err);
     }
-});
+}
 
-router.patch('/:postid',verify,async(req,res)=>{
+const update= async(req,res)=>{
     try{
         const posts= await Post.updateOne({_id:req.params.postid},
             { $set:
@@ -62,6 +59,8 @@ router.patch('/:postid',verify,async(req,res)=>{
     catch(err){
         res.json(err);
     }
-});
+}
 
-module.exports = router
+module.exports={
+    index,create,show,destroy,update
+};

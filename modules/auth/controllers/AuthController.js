@@ -1,10 +1,9 @@
-const router = require ('express').Router();
-const User= require('../models/User');
-const bcrypt= require('bcryptjs');
-const jwt= require('jsonwebtoken');
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 
-router.post('/register',async(req,res)=>{
+const register =async(req,res)=>{
 
     const user= new User(req.body);
     const validationError=user.validateUserRegistration(req.body);
@@ -28,14 +27,9 @@ router.post('/register',async(req,res)=>{
             res.json(err);
         }
     }
+}
 
-
-
-});
-
-
-router.post('/login',async(req,res)=>{
-
+const login = async(req,res)=>{
     const user= await User.findOne({email:req.body.email});
     const validationError=user.validateUserLogin(req.body);
     if(validationError.error )
@@ -57,6 +51,8 @@ router.post('/login',async(req,res)=>{
             res.json(err);
         }
     }
-});
+}
 
-module.exports = router;
+module.exports ={
+    register,login
+};
