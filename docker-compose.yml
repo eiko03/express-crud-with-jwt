@@ -2,7 +2,7 @@ version: '1'
 services:
   web:
     build: .
-    command: npm run s
+    command: npm app.js
     volumes:
       - .:/usr/app/
       - /usr/app/node_modules
