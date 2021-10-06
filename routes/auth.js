@@ -3,19 +3,22 @@ const User= require('../models/User');
 
 
 router.post('/register',async(req,res)=>{
-    const user= new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-    });
 
-    try{
-        await user.save();
-        res.json({"message":"Registration Successful"});
+    const user= new User(req.body);
+    const valodationerror=user.validateUser(req.body)
+
+    console.log(valodationerror);
+    if(valodationerror.error ){
+        res.status(422).json(valodationerror.error["details"]);
+
     }
-    catch (err){
-        res.json(err);
+    else{
+        const user= new User(req.body);
+        const createdUser=await user.save();
+        res.status(201).json(createdUser);
     }
+
+
 
 });
 
