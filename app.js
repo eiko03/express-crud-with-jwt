@@ -1,8 +1,8 @@
 const express = require ('express');
 const mongoose = require ('mongoose');
 require ('dotenv/config');
-const postRoute = require('./routes/post')
-const authRoute = require('./routes/auth')
+const postRoute = require('./modules/post/routes/post')
+const authRoute = require('./modules/auth/routes/auth')
 const bodyparser= require('body-parser')
 
 const app =express();
